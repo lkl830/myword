@@ -1,6 +1,7 @@
 package com.sky.myword
 
-
+import com.sky.myword.file.Line
+import com.sky.myword.file.Page
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,7 +28,9 @@ class MywordApplicationTests {
 	@Test
 	void wordFileReaderTest(){
 		println "wordFileReader begin"
-		wordFileReader.readFile("src/test/resources/20180605.txt")
+		wordFileReader.readFile("src/test/resources/20180605.txt").each {
+			println it
+		}
 		println "wordFileReader end"
 	}
 
@@ -38,7 +41,9 @@ class MywordApplicationTests {
 	@Test
 	void wordInputStreamTest(){
 		println "wordInputStream begin"
-		wordInputStream.readFile("src/test/resources/20180605.txt")
+		wordInputStream.readFile("src/test/resources/20180605.txt").each {
+			println it
+		}
 		println "wordInputStream end"
 	}
 
@@ -57,6 +62,31 @@ class MywordApplicationTests {
 		File file = new File("out/test/resources/20180605.txt");
 
 		println file.getAbsolutePath()
+	}
+
+
+	@Test
+	void readFileToPage(){
+		List<Line> lines=wordBufferedReader.read("src/test/resources/20180605.txt").collectMany { paragraph->
+			wordBufferedReader.splitLine(paragraph)
+		}.flatten()
+
+		Page page=new Page();
+		page.content=lines
+
+
+		for (Line line in page.content){
+			println line.content
+		}
+	}
+
+
+	@Test
+	void  testPage(){
+		List<Page> pages=wordBufferedReader.readFileToPage("src/test/resources/20180605.txt")
+		pages.get(0).getContent().each {line->
+			println line.content
+		}
 	}
 
 }

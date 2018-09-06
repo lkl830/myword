@@ -2,20 +2,30 @@ package com.sky.myword.file
 
 import org.springframework.stereotype.Service
 
+/***
+ * FileInputStream 按字节读取，tempbytes 的取值不合适容易造成输出乱码
+ */
 @Service
 class WordInputStream implements Document{
+
     @Override
-    String readFile(String path) {
-
-        byte[] tempbytes = new byte[100]
-        int byteread = 0
-        InputStream inputStream=new  FileInputStream(new File(path))
-
-        while ((byteread = inputStream.read(tempbytes)) != -1){
-//            println tempbytes
-            System.out.write(tempbytes, 0, byteread);//好方法，第一个参数是数组，第二个参数是开始位置，第三个参数是长度
-            }
-        inputStream.close()
+    List<Page> readFileToPage(String filepath) {
         return null
+    }
+
+    @Override
+    List<Line> splitLine(Paragraph paragraph) {
+        return null
+    }
+
+    @Override
+    List<Paragraph> read(String filepath) {
+        return null
+    }
+
+    @Override
+    List<String> readFile(String path) {
+        InputStream inputStream=new  FileInputStream(new File(path))
+        return inputStream.readLines()
     }
 }

@@ -2,20 +2,32 @@ package com.sky.myword.file
 
 import org.springframework.stereotype.Service
 
+/***
+ *  FileReader
+ */
 @Service
 class WordFileReader implements Document ,Serializable{
 
     @Override
-    String readFile(String path) {
-
-        int c=0
-        FileReader reader=new FileReader(path)
-        c=reader.read()
-        while (-1 != c){
-            println c as char
-            c=reader.read()
-        }
-        reader.close()
+    List<Page> readFileToPage(String filepath) {
         return null
+    }
+
+    @Override
+    List<Line> splitLine(Paragraph paragraph) {
+        return null
+    }
+
+    @Override
+    List<Paragraph> read(String filepath) {
+        return null
+    }
+
+    @Override
+    List<String> readFile(String path) {
+
+        FileReader reader=new FileReader(path)
+        return reader.readLines()
+
     }
 }
