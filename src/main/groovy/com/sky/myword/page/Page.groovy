@@ -1,6 +1,14 @@
 package com.sky.myword.page
 
-class Page {
+import com.sky.myword.file.Element
 
-    List<Line> content
+class Page extends Element{
+
+    /***
+     * 页面信息
+     */
+    PageSetting pageInfo
+
+
+    List<PageParagraph> content
 }
