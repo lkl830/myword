@@ -1,7 +1,7 @@
 package com.sky.myword
 
-import com.sky.myword.file.Line
-import com.sky.myword.file.Page
+import com.sky.myword.testfile.Line
+import com.sky.myword.testfile.Page
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
