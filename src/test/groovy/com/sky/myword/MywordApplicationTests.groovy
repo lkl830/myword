@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner
 class MywordApplicationTests {
 
 	@Autowired
-	com.sky.myword.file.WordBufferedReader wordBufferedReader
+	com.sky.myword.testfile.WordBufferedReader wordBufferedReader
 
 	@Test
 	void wordBufferedReaderTest(){
@@ -23,7 +23,7 @@ class MywordApplicationTests {
 	}
 
 	@Autowired
-	com.sky.myword.file.WordFileReader wordFileReader
+	com.sky.myword.testfile.WordFileReader wordFileReader
 
 	@Test
 	void wordFileReaderTest(){
@@ -36,7 +36,7 @@ class MywordApplicationTests {
 
 
 	@Autowired
-	com.sky.myword.file.WordInputStream wordInputStream
+	com.sky.myword.testfile.WordInputStream wordInputStream
 
 	@Test
 	void wordInputStreamTest(){

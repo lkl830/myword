@@ -1,4 +1,4 @@
-package com.sky.myword.file
+package com.sky.myword.testfile
 
 class Page {
 
