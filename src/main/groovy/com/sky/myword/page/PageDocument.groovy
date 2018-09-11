@@ -4,7 +4,9 @@ import com.sky.myword.file.Element
 import com.sky.myword.file.MyDocument
 import com.sky.myword.file.Paragraph
 import com.sky.myword.file.ParagraphType
+import org.springframework.stereotype.Service
 
+@Service
 class PageDocument implements MyDocument {
 
     //假设字符长宽都为15
@@ -65,10 +67,40 @@ class PageDocument implements MyDocument {
             if (pageHeight< paragraphHeight){
                 //todo
                 //当前段落需要跨页
+                int lineNum=0 ;
+                for (int i=0;i<pageParagraph.lines.size();i++){
+                    pageHeight=pageHeight-pageParagraph.lines.get(i).height
+                    if (pageHeight==0){
+                        lineNum=i;
+                        break;
+                    }
+                    if (pageHeight<0){
+                        lineNum=i-1;
+                        break;
+                    }
+                }
                 // 将当前段落划分为 当前页段落和 另一段落
+                PageParagraph thisPageParagph=new PageParagraph();
+                thisPageParagph.before=pageParagraph.before;
+                thisPageParagph.lines=pageParagraph.lines.subList(0,lineNum+1)
                 // 保存当前页的段落内容
+                pages.last().content.add(thisPageParagph)
+                newPage(pages)
+                pageHeight=height
+
                 // 剩余内容下一页可以存储
                 // 剩余内容仍需要分多页存储
+                List<Line> otherPageLines=pageParagraph.lines.subList(lineNum+1,pageParagraph.lines.size())
+                 paragraphHeight=otherPageLines.collect {it.height}.sum () as int
+                def otherPages=paragraphHeight/pageHeight
+                for (int n=0;n<otherPages-1;n++){
+
+                    pages.last().content.add(convertToPageParagraph(otherPageLines,pageHeight))
+                    paragraphHeight=paragraphHeight-pageHeight
+                    newPage(pages)
+                }
+
+                pageParagraph.lines=otherPageLines
             }
             pageHeight=pageHeight-paragraphHeight
             pageHeight=pageHeight-pageParagraph.after
@@ -76,6 +108,28 @@ class PageDocument implements MyDocument {
         }
 
         return pages;
+    }
+
+    PageParagraph convertToPageParagraph(List<Line> lines, int pageHeight) {
+        int subIndex=0
+        for (int i=0;i<lines.size();i++){
+            pageHeight=pageHeight-lines.get(i).height
+            if (pageHeight==0){
+                subIndex=i
+                break
+            }
+
+            if (pageHeight<0){
+                subIndex=i-1
+                break
+            }
+
+        }
+
+        PageParagraph pageParagraph=new PageParagraph();
+        pageParagraph.lines=lines.subList(0,subIndex+1)
+        lines.removeAll(pageParagraph.lines)
+        pageParagraph
     }
 
     private void newPage(ArrayList<Page> pages) {

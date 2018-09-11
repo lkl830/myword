@@ -1,5 +1,8 @@
 package com.sky.myword.file
 
+import org.springframework.stereotype.Service
+
+@Service
 class DocumentImpl implements Document{
     @Override
     List<String> readFile(String path) {

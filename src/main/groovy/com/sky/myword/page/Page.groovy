@@ -10,5 +10,5 @@ class Page extends Element{
     PageSetting pageInfo
 
 
-    List<PageParagraph> content
+    List<PageParagraph> content=new ArrayList<>()
 }
