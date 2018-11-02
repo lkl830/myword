@@ -1,6 +1,6 @@
 package com.sky.myword
 
-class NewDocument {
+class NewDocument implements Cloneable {
     String content
 
     NewDocument(String path) {
@@ -13,5 +13,9 @@ class NewDocument {
 
     void replaceChars(String contentChars, String targetChars) {
         content=content.replaceAll(contentChars,targetChars)
+    }
+
+    void contentAppend(String appendString) {
+        content=content.concat(appendString)
     }
 }
