@@ -18,4 +18,9 @@ class NewDocument implements Cloneable {
     void contentAppend(String appendString) {
         content=content.concat(appendString)
     }
+
+    def insertChars(Cursor cursor, char[] insertChars) {
+
+
+    }
 }
