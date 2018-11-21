@@ -7,10 +7,10 @@ class vi20181116Spock extends Specification{
     def "插入 abc 到空白文档，检查光标位置和文件内容"(){
         given:
         def vifile=ViFlie.openFile()
-        vifile.insert('abc')
+        vifile.insert('a' as char)
         expect:
-        vifile.content=='abc'
-        vifile.cursor.x==3
+        vifile.content=='a'
+        vifile.cursor.x==1
         vifile.cursor.y==0
     }
 
@@ -18,11 +18,11 @@ class vi20181116Spock extends Specification{
     def "连续插入字符串，检查光标位置和文件内容"(){
         given:
         def vifile=ViFlie.openFile()
-        vifile.insert('abc')
-        vifile.insert('def')
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
         expect:
-        vifile.content=='abcdef'
-        vifile.cursor.x==6
+        vifile.content=='ab'
+        vifile.cursor.x==2
         vifile.cursor.y==0
     }
 
@@ -30,11 +30,12 @@ class vi20181116Spock extends Specification{
     def "定点插入字符 a"(){
         given:
         def vifile=ViFlie.openFile()
-        vifile.insert('abc')
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
         vifile.cursor=new Cursor(x: 1,y: 0)
-        vifile.insert('a')
+        vifile.insert('a' as char)
         expect:
-        vifile.content=='aabc'
+        vifile.content=='aab'
         vifile.cursor.x==2
         vifile.cursor.y==0
     }
@@ -48,5 +49,87 @@ class vi20181116Spock extends Specification{
         vifile.cursor.x==0
         vifile.cursor.y==5
     }
+
+
+    def "单行：获取光标后面2个字符"(){
+        given:
+        def vifile=ViFlie.openFile()
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
+        vifile.insert('c' as char)
+        vifile.insert('d' as char)
+        vifile.insert('e' as char)
+        vifile.insert('f' as char)
+        vifile.insert('g' as char)
+
+        vifile.cursor=new Cursor(x: 3,y: 0)
+        char[] chars=vifile.copyCharsOnCursor(2)
+        char[] exp= ['d', 'e']
+        expect:
+        chars == exp
+
+    }
+
+
+    def "换行输入字符，验证"(){
+        given:
+        def vifile=ViFlie.openFile()
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
+        vifile.insert('c' as char)
+        vifile.newLine()
+        vifile.insert('d' as char)
+        vifile.insert('e' as char)
+        vifile.insert('f' as char)
+        vifile.insert('g' as char)
+
+        String exp= 'abc,defg'
+        expect:
+        vifile.content==exp
+        vifile.cursor.x==4
+        vifile.cursor.y==1
+
+    }
+
+    def "多行：获取光标后面2个字符"(){
+        given:
+        def vifile=ViFlie.openFile()
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
+        vifile.insert('c' as char)
+        vifile.newLine()
+        vifile.insert('d' as char)
+        vifile.insert('e' as char)
+        vifile.insert('f' as char)
+        vifile.insert('g' as char)
+
+        vifile.cursor=new Cursor(x: 3,y: 1)
+        char[] chars=vifile.copyCharsOnCursor(2)
+        char[] exp= ['g']
+        expect:
+        chars == exp
+
+    }
+
+    def "多行：在第一行后，插入新的一行"(){
+        given:
+        def vifile=ViFlie.openFile()
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
+        vifile.insert('c' as char)
+        vifile.newLine()
+        vifile.insert('d' as char)
+        vifile.insert('e' as char)
+        vifile.insert('f' as char)
+        vifile.insert('g' as char)
+
+        vifile.cursor=new Cursor(x: 3,y: 0)
+        vifile.newLine()
+        def exp= 'abc,,defg'
+        expect:
+        vifile.content == exp
+
+    }
+
 
 }

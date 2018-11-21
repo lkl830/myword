@@ -5,41 +5,85 @@ class ViFlie {
     Cursor cursor
     String content
 
+    List<String> texts
+
     ViFlie() {
         this.cursor = new Cursor()
         this.content=''
+        this.texts=new ArrayList<>()
     }
 
     static ViFlie openFile() {
         return new ViFlie()
     }
 
-    def insert(String s) {
-        if (this.cursor.x>=this.content.length()){
-            this.content=this.content+s
-        }else {
-            this.content=this.content.substring(0,this.cursor.x)+s+this.content.substring(this.cursor.x)
+    String getContent() {
+        if (texts){
+            return texts.join(',')
         }
-        //todo
-        //修改字符串
-        //修改光标
-        movingCusor(s)
+        return content
+    }
+
+    def insert(char s) {
+        def lineStr=''
+        if (this.texts.size()>this.cursor.y){
+            lineStr=this.texts[this.cursor.y]
+        }
+
+        if (this.cursor.x>=lineStr.length()){
+            lineStr += s
+        }else {
+            lineStr=lineStr.substring(0,this.cursor.x)+s+lineStr.substring(this.cursor.x)
+        }
+
+        this.texts[this.cursor.y]=lineStr
+        movingCusor('right')
 
     }
 
 
-    def movingCusor(String s){
-        for (int i=0;i<s.length();i++){
-            this.cursor.remove("right")
-        }
+    def movingCusor(String direction){
+        this.cursor.remove(direction)
     }
 
     def newLine() {
-        this.content=this.content+'''
-'''
-        this.cursor.remove("down")
+        if (this.texts.size()==(this.cursor.y+1)){
+            this.texts<<''
+        }else if (this.texts.size()>(this.cursor.y+1)){
+
+            for (int i=this.texts.size();i >=this.cursor.y+1;i--){
+                if (i>this.cursor.y+1){
+                    this.texts[i+1]=this.texts[i]
+                }else {
+                    this.texts[i]=''
+                }
+            }
+
+        }else {
+            //todo
+        }
+
+
+        movingCusor('down')
         this.cursor.x=0
 
+
+    }
+
+    char[] copyCharsOnCursor(int length) {
+        def lineStr=''
+        if (this.texts.size()>this.cursor.y){
+            lineStr=this.texts[this.cursor.y]
+        }
+        if (lineStr!=''){
+            if (lineStr.length()>this.cursor.x+length){
+                return  lineStr.substring(this.cursor.x,this.cursor.x+length).toCharArray()
+            }else {
+                return  lineStr.substring(this.cursor.x).toCharArray()
+            }
+        }else {
+            return []
+        }
 
     }
 }
