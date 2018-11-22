@@ -53,7 +53,7 @@ class ViFlie {
 
             for (int i=this.texts.size();i >=this.cursor.y+1;i--){
                 if (i>this.cursor.y+1){
-                    this.texts[i+1]=this.texts[i]
+                    this.texts[i]=this.texts[i-1]
                 }else {
                     this.texts[i]=''
                 }
