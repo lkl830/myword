@@ -8,7 +8,7 @@ class Cursor {
     int x //光标横位置
     int y //光标纵位置
 
-    Cursor remove(String direction) {
+    Cursor move(String direction) {
         def tempx=x
         if (direction=="left"){
              tempx=x-1

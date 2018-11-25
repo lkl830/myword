@@ -132,4 +132,52 @@ class vi20181116Spock extends Specification{
     }
 
 
+    def "多行：在第一行后插入新的一行，内容为abc"(){
+        given:
+        def vifile=ViFlie.openFile()
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
+        vifile.insert('c' as char)
+        vifile.newLine()
+        vifile.insert('d' as char)
+        vifile.insert('e' as char)
+        vifile.insert('f' as char)
+        vifile.insert('g' as char)
+
+        vifile.cursor=new Cursor(x: 3,y: 0)
+        vifile.newLine()
+        vifile.insert('a' as char)
+        vifile.insert('b' as char)
+        vifile.insert('c' as char)
+        def exp= 'abc,abc,defg'
+        expect:
+        vifile.content == exp
+
+    }
+
+    def "移动光标 (5,0)->(3,1)"(){
+        given:
+        def file=ViFlie.openFile()
+        file.insert('a' as char)
+        file.insert('a' as char)
+        file.insert('a' as char)
+        file.insert('a' as char)
+        file.insert('a' as char)
+        file.newLine()
+        file.insert('b' as char)
+        file.insert('b' as char)
+        file.insert('b' as char)
+
+
+        file.cursor=new Cursor(x: 5,y: 0)
+        file.cursorToNextLine()
+
+
+        expect:
+        file.cursor.x==3
+        file.cursor.y==1
+
+    }
+
+
 }

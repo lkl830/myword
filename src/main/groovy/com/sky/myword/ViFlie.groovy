@@ -43,7 +43,7 @@ class ViFlie {
 
 
     def movingCusor(String direction){
-        this.cursor.remove(direction)
+        this.cursor.move(direction)
     }
 
     def newLine() {
@@ -85,5 +85,15 @@ class ViFlie {
             return []
         }
 
+    }
+
+    void cursorToNextLine() {
+        def currentCursorx=this.cursor.x
+        def currentCursory=this.cursor.y
+
+        def nextLineStr=this.texts[currentCursory+1]
+        if (nextLineStr.length()<currentCursorx){
+            this.cursor=new Cursor(x: nextLineStr.length(),y:currentCursory+1)
+        }
     }
 }
