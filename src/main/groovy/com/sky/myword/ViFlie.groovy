@@ -13,7 +13,7 @@ class ViFlie {
         this.texts=new ArrayList<>()
     }
 
-    static ViFlie openFile() {
+    static ViFlie createBlankFile() {
         return new ViFlie()
     }
 
