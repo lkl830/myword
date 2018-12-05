@@ -1,12 +1,14 @@
 package com.sky.myword
 
+import com.sky.myword.test1116.Cursor
+import com.sky.myword.test1116.ViFile
 import spock.lang.Specification
 
-class vi20181116Spock extends Specification{
+class test1116Spock extends Specification{
     //打开文件，文件内容空白，光标在开始位置，输入字符到文件里，光标随追加的字符向后移动
-    def "插入 abc 到空白文档，检查光标位置和文件内容"(){
+    def "插入 a 到空白文档，检查光标位置和文件内容"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         expect:
         vifile.content=='a'
@@ -17,7 +19,7 @@ class vi20181116Spock extends Specification{
 
     def "连续插入字符串，检查光标位置和文件内容"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         expect:
@@ -29,7 +31,7 @@ class vi20181116Spock extends Specification{
 
     def "定点插入字符 a"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         vifile.cursor=new Cursor(x: 1,y: 0)
@@ -42,7 +44,7 @@ class vi20181116Spock extends Specification{
 
     def "插入换行"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.cursor=new Cursor(x: 3,y: 4)
         vifile.newLine()
         expect:
@@ -53,7 +55,7 @@ class vi20181116Spock extends Specification{
 
     def "单行：获取光标后面2个字符"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         vifile.insert('c' as char)
@@ -73,7 +75,7 @@ class vi20181116Spock extends Specification{
 
     def "换行输入字符，验证"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         vifile.insert('c' as char)
@@ -93,7 +95,7 @@ class vi20181116Spock extends Specification{
 
     def "多行：获取光标后面2个字符"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         vifile.insert('c' as char)
@@ -113,7 +115,7 @@ class vi20181116Spock extends Specification{
 
     def "多行：在第一行后，插入新的一行"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         vifile.insert('c' as char)
@@ -134,7 +136,7 @@ class vi20181116Spock extends Specification{
 
     def "多行：在第一行后插入新的一行，内容为abc"(){
         given:
-        def vifile=ViFlie.createBlankFile()
+        def vifile=ViFile.createBlankFile()
         vifile.insert('a' as char)
         vifile.insert('b' as char)
         vifile.insert('c' as char)
@@ -157,7 +159,7 @@ class vi20181116Spock extends Specification{
 
     def "移动光标 (5,0)->(3,1)"(){
         given:
-        def file=ViFlie.createBlankFile()
+        def file=ViFile.createBlankFile()
         file.insert('a' as char)
         file.insert('a' as char)
         file.insert('a' as char)

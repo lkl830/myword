@@ -1,20 +1,20 @@
-package com.sky.myword
+package com.sky.myword.test1116
 
-class ViFlie {
+class ViFile {
 
     Cursor cursor
     String content
 
     List<String> texts
 
-    ViFlie() {
+    ViFile() {
         this.cursor = new Cursor()
         this.content=''
         this.texts=new ArrayList<>()
     }
 
-    static ViFlie createBlankFile() {
-        return new ViFlie()
+    static ViFile createBlankFile() {
+        return new ViFile()
     }
 
     String getContent() {

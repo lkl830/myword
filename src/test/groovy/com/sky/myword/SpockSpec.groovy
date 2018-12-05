@@ -49,12 +49,12 @@ class SpockSpec extends Specification {
 
     }
 
-    def "获取文件最后一行数据"(){
+    /*def "获取文件最后一行数据"(){
         given:
         def document
         expect:
         document.lastLine
 
-    }
+    }*/
 
 }

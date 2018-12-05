@@ -1,9 +1,10 @@
 package com.sky.myword
 
+import com.sky.myword.test1116.Cursor
 import spock.lang.Specification
 
 class viSpock  extends Specification{
-    def "光标处 插入 liukaili-1 文本开始处插入"(){
+  /*  def "光标处 插入 liukaili-1 文本开始处插入"(){
         given:
         TemplateDAO dao = Mock()
         dao.getTemplateByName(_) >> { String templateName ->
@@ -64,5 +65,5 @@ class viSpock  extends Specification{
         expect:
         document.content=="你好liukaili"
 
-    }
+    }*/
 }
