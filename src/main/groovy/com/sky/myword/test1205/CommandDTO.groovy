@@ -5,14 +5,14 @@ class CommandDTO {
     String key
 
     boolean isEditor() {
-        return ['a', 'A', 'i', 'I', 'o', 'O'].any { it == commandChars[commandChars.length - 1] }
+        return ['a', 'A', 'i', 'I', 'o', 'O'].any { it as char == commandChars[commandChars.length - 1] }
     }
 
     boolean isEnd() {
-        return commandChars[commandChars.length-1]==':'
+        return commandChars[commandChars.length - 1] == ':' as char
     }
 
     boolean isESC() {
-        return key=='esc'
+        return key == 'esc'
     }
 }

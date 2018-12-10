@@ -32,6 +32,7 @@ class test1205Spock extends Specification {
     def cleanup() {
         fileEditDTO = null
         command = null
+        esc=null
     }
 
     /**
@@ -40,7 +41,7 @@ class test1205Spock extends Specification {
      */
     def '传入 vi 命令，打开新文件'() {
         expect:
-        fileEditDTO.fileMode == 'COMMAND'
+        fileEditDTO.fileMode == FileMode.COMMAND
         fileEditDTO.cursor.x == 0
         fileEditDTO.cursor.y == 0
 
@@ -54,7 +55,7 @@ class test1205Spock extends Specification {
         def commandDTO=command.commandByChar(['i'] as char[])
         fileEditDTO.execute(commandDTO)
         expect:
-        fileEditDTO.fileMode=='EDIT'
+        fileEditDTO.fileMode==FileMode.EDIT
     }
 
     /**
@@ -65,7 +66,7 @@ class test1205Spock extends Specification {
         def commandDTO=command.commandByChar(['b'] as char[])
         fileEditDTO.execute(commandDTO)
         expect:
-        fileEditDTO.fileMode=='COMMAND'
+        fileEditDTO.fileMode==FileMode.COMMAND
     }
 
     /**
@@ -76,7 +77,7 @@ class test1205Spock extends Specification {
         def commandDTO=command.commandByChar([':'] as char[])
         fileEditDTO.execute(commandDTO)
         expect:
-        fileEditDTO.fileMode=='END'
+        fileEditDTO.fileMode==FileMode.END
     }
 
     /**
@@ -88,7 +89,7 @@ class test1205Spock extends Specification {
         fileEditDTO.execute(commandDTO)
         fileEditDTO.execute(esc)
         expect:
-        fileEditDTO.fileMode=='COMMAND'
+        fileEditDTO.fileMode==FileMode.COMMAND
     }
 
     /**
@@ -100,7 +101,7 @@ class test1205Spock extends Specification {
         fileEditDTO.execute(commandDTO)
         fileEditDTO.execute(esc)
         expect:
-        fileEditDTO.fileMode=='COMMAND'
+        fileEditDTO.fileMode==FileMode.COMMAND
 
     }
 

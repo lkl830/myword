@@ -1,23 +1,23 @@
 package com.sky.myword.test1205
 
 class FileEditDTO {
-    String fileMode='COMMAND'
+    FileMode fileMode=FileMode.COMMAND
     Cursor cursor=new Cursor()
 
     void execute(CommandDTO commandDTO) {
         if (commandDTO.commandChars){
             if (commandDTO.isEditor()){
-                fileMode='EDIT'
+                fileMode=FileMode.EDIT
             }else if (commandDTO.isEnd()){
-                fileMode='END'
+                fileMode=FileMode.END
             }else {
-                fileMode='COMMAND'
+                fileMode=FileMode.COMMAND
             }
         }
 
         if (commandDTO.key){
             if (commandDTO.isESC()){
-                fileMode='COMMAND'
+                fileMode=FileMode.COMMAND
             }
         }
 
