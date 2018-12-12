@@ -1,16 +1,15 @@
 package com.sky.myword.test1205
 
-class CommandImpl implements Command{
+class CommandImpl implements Command {
+
+
+    @Override
     CommandDTO commandByChar(char[] chars) {
-        new CommandDTO(
-                commandChars:chars
-        )
+        return new CommandDTO(chars)
     }
 
-
+    @Override
     CommandDTO commandByKey(String key) {
-        new CommandDTO(
-                key:key
-        )
+        return new CommandDTO(key)
     }
 }
