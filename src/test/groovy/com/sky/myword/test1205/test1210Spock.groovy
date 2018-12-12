@@ -10,7 +10,7 @@ class test1210Spock extends Specification {
      * vi      打开空白文件
      * vi filename         打开已有文件或者创建新文件
      * vi +行号 filename       光标处于文件中特定的某行上
-     * $ vi + filename     光标处于文件末尾
+     * vi + filename     光标处于文件末尾
      * vi +/模式字符串 filename    光标就处于文件中第一个与指定模式串相匹配的那行上
      *
      * 涉及功能点：光标根据实际参数，重置光标位置。
